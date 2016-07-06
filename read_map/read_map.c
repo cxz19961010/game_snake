@@ -1,6 +1,7 @@
 #include<stdio.h>
+#include<malloc.h>
 //#include<ncurses.h>
-#include<stdlib.h>
+//#include<stdlib.h>
 
 int read_map(void *Self,char *p);
 struct map{
@@ -9,7 +10,7 @@ struct map{
 		int x,y;//记录地图的长宽
 		char **map;
 	};
-	int (*read_map)(void *Self,char *p) read_map;
+	int (*read_map)(void *Self,char *p);
 }map={0,0,NULL,read_map};
 int read_map(void *Self ,char * p){//map的第一行为地图的长宽，第二行开始为地图
 	struct map* self=(struct map*)Self;
@@ -34,7 +35,7 @@ int read_map(void *Self ,char * p){//map的第一行为地图的长宽，第二行开始为地图
 int main(int argc,char *argv[]){
 	printf("ok\n");
 	printf("%s\n",argv[1]);
-	if((*map.read_map)((void*)map,argv[1])){
+	if((map.read_map)((void*)&map,argv[1])){
 		printf("error");
 		return 0;
 		
